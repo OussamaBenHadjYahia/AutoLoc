@@ -1,17 +1,20 @@
 package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-@Entity
-@Table(name = "agence")
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Entity
+
 public class Agence {
 
     @Id
@@ -29,4 +32,10 @@ public class Agence {
 
     @Column(length = 20)
     private String telephone;
+
+    @OneToMany(mappedBy = "agence")
+    List<Employe> employes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "agence")
+    List<Vehicule> vehicules = new ArrayList<>();
 }
